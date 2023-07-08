@@ -4,3 +4,7 @@
 *.zip
 *.pyd
 *.dll
+*.ttf
+*.bmp
+output\
+
