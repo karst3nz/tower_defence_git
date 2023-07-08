@@ -1,7 +1,5 @@
 import pygame
-import random
 
-from COLORS import *
 from defs import print_ts
 
 # Инициализация Pygame

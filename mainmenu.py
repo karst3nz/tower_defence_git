@@ -1,11 +1,10 @@
-import tower
-from tower import *
-from button import Button, Text
-from defs import time_stamp, print_ts
-from COLORS import *
-import enemy
-from enemy import *
 import pygame
+
+from COLORS import *
+from button import Button, Text
+from defs import time_stamp
+from enemy import *
+from tower import *
 
 """
 Это основной цикл игры, который обрабатывает события,

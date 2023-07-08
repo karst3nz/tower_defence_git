@@ -1,8 +1,7 @@
 import pygame
 
-from COLORS import BLACK
-from defs import time_stamp, print_ts
-from enemy import all_sprites, screen, enemies
+from defs import time_stamp
+from enemy import all_sprites, screen
 
 pygame.init()
 pygame.font.init()
