@@ -156,22 +156,22 @@ while running:
                             # Обработка нажатий кнопок для размещения башен
                             if b == tower_place_1:
                                 print_ts('tower_place_1')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_1")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_1")
                             elif b == tower_place_2:
                                 print_ts('tower_place_2')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_2")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_2")
                             elif b == tower_place_3:
                                 print_ts('tower_place_3')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_3")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_3")
                             elif b == tower_place_4:
                                 print_ts('tower_place_4')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_4")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_4")
                             elif b == tower_place_5:
                                 print_ts('tower_place_5')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_5")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_5")
                             elif b == tower_place_6:
                                 print_ts('tower_place_6')
-                                tower.create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_6")
+                                create(pos=(b.rect.x, b.rect.y), tower_place="tower_place_6")
         current_time = pygame.time.get_ticks()
         if current_time - enemy_spawn_timer >= enemy_spawn_delay:
             # Выполнить спавн врага
@@ -180,11 +180,20 @@ while running:
         all_sprites.update()  # Обновление спрайтов
         all_sprites.draw(screen)  # Отрисовка спрайтов на экране
         for enemy_sprite in enemies:
-            for circle in tower.circles:
+            for circle in circles:
                 if enemy_sprite.rect.colliderect(circle.rect):
                     for enemy in enemies:
                         if enemy.rect.colliderect(circle.rect):
-                            print_ts("enemy collide with tower")
+                            bullet_current_time = pygame.time.get_ticks()
+                            if bullet_current_time - last_shot_time >= bullet_cd:
+                                for tower, circle in zip(towers, circles):
+                                    enemies_in_radius = pygame.sprite.spritecollide(circle, enemies, dokill=False)
+                                    if enemies_in_radius:
+                                        target_enemy = enemies_in_radius[0]  # Выбираем первого врага в радиусе
+                                        tower.shoot(target_enemy)
+                                bullet_cd = bullet_current_time  # Сбросить таймер спавна
+                                # Пример вызова метода shoot() для первой башни
+
 
         mouse_pos = pygame.mouse.get_pos()
         mouse_text = font.render(f"Mouse position: {mouse_pos}", True, (0, 0, 0))
