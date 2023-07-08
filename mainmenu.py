@@ -44,10 +44,10 @@ font = pygame.font.SysFont("Arial", 16)
 
 # Таймер для спавна врага
 enemy_spawn_timer = pygame.time.get_ticks()
-enemy_spawn_delay = 1500  # 3 секунды (в миллисекундах)
+enemy_spawn_delay = 1500  # 1,5 секунды (в миллисекундах)
 
 # Таймер для выстрелов башни
-bullet_cd = 1000  # 1 sek
+bullet_cd = 1000  # 1 секундa (в миллисекундах)
 last_shot_time = pygame.time.get_ticks()  # Время последнего выстрела
 
 # Основной цикл игры
@@ -134,8 +134,8 @@ while running:
         screen.blit(bg_image, (0, 0))
         main_menu = False
         # отрисовка текста в левойверхней части экрана
-        for i in text_list:
-            i.draw(screen)
+        # for i in text_list:
+        #     i.draw(screen)
         if not main_game_bg_is_load:
             bg_image = pygame.image.load("img/BG.png")
             screen.blit(bg_image, (0, 0))
@@ -195,9 +195,9 @@ while running:
                                 # Пример вызова метода shoot() для первой башни
 
 
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_text = font.render(f"Mouse position: {mouse_pos}", True, (0, 0, 0))
-        screen.blit(mouse_text, (10, 10))
+        # mouse_pos = pygame.mouse.get_pos()
+        # mouse_text = font.render(f"Mouse position: {mouse_pos}", True, (0, 0, 0))
+        # screen.blit(mouse_text, (10, 10))
 
     ##############################
     # Обработка событий и нажатий в игре
