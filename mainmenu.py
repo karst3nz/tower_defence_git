@@ -19,7 +19,7 @@ pygame.font.init()
 
 # ограничение кадров игры (игровых тиков)
 clock = pygame.time.Clock()
-fps = 90
+fps = 60
 
 # Размеры экрана
 screen_w = 800
