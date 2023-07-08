@@ -1,5 +1,4 @@
 import pygame
-
 from COLORS import *
 from button import Button, Text
 from defs import time_stamp
