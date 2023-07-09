@@ -1,4 +1,3 @@
-Конечно! Вот пример README.md файла для вашего проекта "Tower Defense Game":
 
 # Tower Defense Game
 
