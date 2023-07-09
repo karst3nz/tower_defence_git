@@ -1,7 +1,5 @@
-
 *.zip
 *.exe
-*.zip
 *.pyd
 *.dll
 *.ttf

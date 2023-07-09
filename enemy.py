@@ -59,7 +59,7 @@ class Enemy(pygame.sprite.Sprite):
         self.current_target = 0
         self.health = health
 
-        # Создание полоски здоровья
+        # # Создание полоски здоровья
         # self.health_bar = HealthBar(health)
         # self.health_bar.update(self.rect.center)
         # all_sprites.add(self.health_bar)
@@ -82,7 +82,7 @@ class Enemy(pygame.sprite.Sprite):
             print_ts("Enemy killed!")
 
     def hit(self):
-        self.health -= 2.5
+        self.health -= 8
         # self.health_bar.current_health = self.health
         if self.health <= 0:
             self.kill()
