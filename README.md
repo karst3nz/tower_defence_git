@@ -27,7 +27,7 @@ Tower Defense Game представляет собой игру, в которо
 
 1. Склонируйте репозиторий с помощью команды:
    ```
-   git clone https://github.com/your-username/tower-defense-game.git
+   git clone https://github.com/karst3nz/tower_defence_git
    ```
 
 2. Перейдите в директорию проекта:
