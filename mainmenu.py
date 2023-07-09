@@ -51,7 +51,7 @@ last_shot_time = pygame.time.get_ticks()  # Время последнего вы
 # Основной цикл игры
 while running:
     clock.tick(fps)
-    pygame.display.set_caption(f"{time_stamp()} | Game")
+    pygame.display.set_caption(f"{time_stamp()} | Tower Defence")
     # настройки кнопок
 
     crash_button = Button(pos=(screen_w // 2 - 50, screen_h // 2 + 50), clr=WHITE, cngclr=RED,
@@ -70,7 +70,7 @@ while running:
     tower_place_4 = Button(pos=(450, 295), size=(60, 60), cngclr=RED)
     tower_place_5 = Button(pos=(600, 200), size=(60, 60), cngclr=RED)
     tower_place_6 = Button(pos=(725, 345), size=(60, 60), cngclr=RED)
-    money_text = Text(text=f"Золото - {money}", pos=(20, 20), clr=BLACK, font="Times New Roman", font_size=18)
+    #money_text = Text(text=f"Золото - {money}", pos=(20, 20), clr=BLACK, font="Times New Roman", font_size=18)
 
     # лист с кнопками для отрисовки
     main_menu_button_list = [play_button, crash_button]
@@ -78,7 +78,7 @@ while running:
     warning_button_list = [exit_button, not_exit_button]
     debug_menu_button_list = [debug_test_place_button]
     place_for_tower_list = [tower_place_1, tower_place_2, tower_place_3, tower_place_4, tower_place_5, tower_place_6]
-    text_list = [money_text]
+    #text_list = [money_text]
 
     ##############################
     # Отображение главного меню
@@ -134,10 +134,6 @@ while running:
         # отрисовка текста в левойверхней части экрана
         # for i in text_list:
         #     i.draw(screen)
-        if not main_game_bg_is_load:
-            bg_image = pygame.image.load("img/BG.png")
-            screen.blit(bg_image, (0, 0))
-            main_game_bg_is_load = True
         # ячейки для башен
         for i in place_for_tower_list:
             i.draw(screen)
@@ -191,7 +187,6 @@ while running:
                                         tower.shoot(target_enemy)
                                 bullet_cd = bullet_current_time  # Сбросить таймер спавна
                                 # Пример вызова метода shoot() для первой башни
-
 
         # mouse_pos = pygame.mouse.get_pos()
         # mouse_text = font.render(f"Mouse position: {mouse_pos}", True, (0, 0, 0))

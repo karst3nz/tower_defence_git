@@ -19,7 +19,8 @@ class TowerSprite(pygame.sprite.Sprite):
     def __init__(self, image, pos):
         super().__init__()
         self.image = image
-        self.rect = pygame.Rect(pos[0], pos[1], self.image.get_width(), self.image.get_height())
+        self.rect = pygame.Rect(pos[0], pos[1], self.image.get_width(),
+                                self.image.get_height())
         self.bullets = pygame.sprite.Group()  # Группа для хранения патронов
 
     def update(self):
@@ -47,7 +48,7 @@ class Circle(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
 
         self.speed = 5
-        self.direction = pygame.Vector2(1, 0)  # Направление движения (вправо)
+        self.direction = pygame.Vector2(1, 0)
 
     def update(self, ):
         pygame.draw.circle(self.image, (*self.color, self.transparency), (self.radius, self.radius), self.radius)
