@@ -11,14 +11,7 @@ tower_3_is_created = 0
 tower_4_is_created = 0
 tower_5_is_created = 0
 tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
-tower_6_is_created = 0
+
 circles = []  # Список для хранения созданных кругов
 towers = []
 
