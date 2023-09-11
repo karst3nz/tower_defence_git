@@ -57,7 +57,7 @@
 /* version macros (defined since version 1.9.5) */
 #define PG_MAJOR_VERSION 2
 #define PG_MINOR_VERSION 5
-#define PG_PATCH_VERSION 1
+#define PG_PATCH_VERSION 0
 #define PG_VERSIONNUM(MAJOR, MINOR, PATCH) \
     (1000 * (MAJOR) + 100 * (MINOR) + (PATCH))
 #define PG_VERSION_ATLEAST(MAJOR, MINOR, PATCH)                             \
@@ -453,53 +453,16 @@ typedef struct {
     int current_h;
 } pg_VideoInfo;
 
-/**
- * A pygame object that wraps an SDL_VideoInfo struct.
- * The object returned by `pygame.display.Info()`
- */
 typedef struct {
     PyObject_HEAD pg_VideoInfo info;
 } pgVidInfoObject;
 
-/**
- * \brief Convert a pgVidInfoObject to an SDL_VideoInfo.
- *
- * \note SDL_VideoInfo pgVidInfo_AsVidInfo(PyObject *obj)
- *
- * \returns the SDL_VideoInfo field of *obj*, a pgVidInfo_Type instance.
- * \param obj A pgVidInfo_Type instance.
- *
- * \note Does not check that *obj* is not `NULL` or an `pgVidInfoObject`
- * object.
- */
 #define pgVidInfo_AsVidInfo(x) (((pgVidInfoObject *)x)->info)
 
 #ifndef PYGAMEAPI_DISPLAY_INTERNAL
-/**
- * \brief The pgVidInfoObject object Python type.
- * \note pgVideoInfo_Type is used for the `pygame.display.Info()` object.
- */
 #define pgVidInfo_Type (*(PyTypeObject *)PYGAMEAPI_GET_SLOT(display, 0))
 
-/**
- * \brief Check if *obj* is a pgVidInfoObject.
- *
- * \returns true if *x* is a `pgVidInfo_Type` instance
- * \note Will return false if *x* is a subclass of `pgVidInfo_Type`.
- * \note This macro does not check that *x* is not ``NULL``.
- * \note int pgVidInfo_Check(PyObject *x)
- */
 #define pgVidInfo_Check(x) ((x)->ob_type == &pgVidInfo_Type)
-
-/**
- * \brief Create a new pgVidInfoObject.
- *
- * \param i A pointer to an SDL_VideoInfo struct.
- * \returns a new `pgVidInfoObject` object for the SDL_VideoInfo *i*.
- *
- * \note PyObject* pgVidInfo_New(SDL_VideoInfo *i)
- * \note On failure, raise a Python exception and return `NULL`.
- */
 #define pgVidInfo_New \
     (*(PyObject * (*)(pg_VideoInfo *)) PYGAMEAPI_GET_SLOT(display, 1))
 
@@ -512,107 +475,30 @@ typedef struct {
 struct pgSubSurface_Data;
 struct SDL_Surface;
 
-/**
- * \brief A pygame object that wraps an SDL_Surface. A `pygame.Surface`
- * instance.
- */
 typedef struct {
     PyObject_HEAD struct SDL_Surface *surf;
-    /**
-     * \brief If true, the surface will be freed when the python object is
-     * destroyed.
-     */
     int owner;
-    /**
-     * \brief The subsurface data for this surface (if a subsurface).
-     */
-    struct pgSubSurface_Data *subsurface;
-    /**
-     * \brief A list of weak references to this surface.
-     */
+    struct pgSubSurface_Data *subsurface; /* ptr to subsurface data (if a
+                                           * subsurface)*/
     PyObject *weakreflist;
-    /**
-     * \brief A list of locks for this surface.
-     */
     PyObject *locklist;
-    /**
-     * \brief Usually a buffer object which the surface gets its data from.
-     */
     PyObject *dependency;
 } pgSurfaceObject;
-
-/**
- * \brief Convert a `pygame.Surface` instance to an SDL_Surface.
- *
- * \param x A `pygame.Surface` instance.
- * \returns the SDL_Surface field of *x*, a `pygame.Surface` instance.
- *
- * \note SDL_Surface* pgSurface_AsSurface(PyObject *x)
- */
 #define pgSurface_AsSurface(x) (((pgSurfaceObject *)x)->surf)
 
 #ifndef PYGAMEAPI_SURFACE_INTERNAL
-/**
- * \brief The `pygame.Surface` object Python type.
- */
 #define pgSurface_Type (*(PyTypeObject *)PYGAMEAPI_GET_SLOT(surface, 0))
 
-/**
- * \brief Check if *x* is a `pygame.Surface` instance.
- *
- * \param x The object to check.
- * \returns true if *x* is a `pygame.Surface` instance
- *
- * \note Will return false if *x* is a subclass of `pygame.Surface`.
- * \note This macro does not check that *x* is not ``NULL``.
- * \note int pgSurface_Check(PyObject *x)
- */
 #define pgSurface_Check(x) \
     (PyObject_IsInstance((x), (PyObject *)&pgSurface_Type))
-
-/**
- * \brief Create a new `pygame.Surface` instance.
- *
- * \param s The SDL surface to wrap in a python object.
- * \param owner If true, the surface will be freed when the python object is
- * destroyed. \returns A new new pygame surface instance for SDL surface *s*.
- * Returns *NULL* on error.
- *
- * \note pgSurfaceObject* pgSurface_New2(SDL_Surface *s, int owner)
- */
 #define pgSurface_New2                            \
     (*(pgSurfaceObject * (*)(SDL_Surface *, int)) \
          PYGAMEAPI_GET_SLOT(surface, 1))
 
-/**
- * \brief Sets the SDL surface for a `pygame.Surface` instance.
- *
- * \param self The `pygame.Surface` instance to set the surface for.
- * \param s The SDL surface to set.
- * \param owner If true, the surface will be freed when the python object is
- * destroyed. \returns 0 on success, -1 on failure.
- *
- * \note int pgSurface_SetSurface(pgSurfaceObject *self, SDL_Surface *s, int
- * owner)
- */
 #define pgSurface_SetSurface                                              \
     (*(int (*)(pgSurfaceObject *, SDL_Surface *, int))PYGAMEAPI_GET_SLOT( \
         surface, 3))
 
-/**
- * \brief Blit one surface onto another.
- *
- * \param dstobj The destination surface.
- * \param srcobj The source surface.
- * \param dstrect The destination rectangle.
- * \param srcrect The source rectangle.
- * \param the_args The blit flags.
- * \return 0 for success, -1 or -2 for error.
- *
- * \note Is accessible through the C api.
- * \note int pgSurface_Blit(PyObject *dstobj, PyObject *srcobj, SDL_Rect
- * *dstrect, SDL_Rect *srcrect, int the_args)
- */
 #define pgSurface_Blit                                                       \
     (*(int (*)(pgSurfaceObject *, pgSurfaceObject *, SDL_Rect *, SDL_Rect *, \
                int))PYGAMEAPI_GET_SLOT(surface, 2))
