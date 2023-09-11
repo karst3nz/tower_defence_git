@@ -11,6 +11,14 @@ tower_3_is_created = 0
 tower_4_is_created = 0
 tower_5_is_created = 0
 tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
+tower_6_is_created = 0
 circles = []  # Список для хранения созданных кругов
 towers = []
 
@@ -67,7 +75,7 @@ def create(pos=(0, 0),
         tower_sprite_1 = TowerSprite(tower_img, pos)
         towers.append(tower_sprite_1)
         # Создание круга
-        circle_1 = Circle((pos[0] + 30, pos[1] + 30), 120, (0, 0, 0), 2, 0)
+        circle_1 = Circle((pos[0] + 30, pos[1] + 30), 120, (0, 0, 0), 2, 130)
         circles.append(circle_1)  # Добавление круга в список
 
         # Добавление спрайта башни в группу all_sprites
